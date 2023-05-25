@@ -12,4 +12,4 @@ RUN npm install
 EXPOSE 3000
 
 #zazene node v zabojniku
-CMD node run
+CMD npm run start
