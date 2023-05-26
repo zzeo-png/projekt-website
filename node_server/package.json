@@ -2,10 +2,10 @@
   "name": "projekt-website",
   "version": "0.0.1",
   "description": "FERI 2. Letnik - Glavni Projekt",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "test": "nodemon app.js",
-    "start": "node app.js"
+    "test": "nodemon index.js",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
