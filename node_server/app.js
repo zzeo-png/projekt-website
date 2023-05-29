@@ -38,8 +38,17 @@ app.get('/', (req, res) => {
 app.post('/test', (req, res) => {
     const test = req.body.test
 
-    console.log(test)
-    res.json(test)
+    const insertQuery = "INSERT INTO test (name) VALUES (?)"
+
+    db.query(insertQuery, [test], (err, result) => {
+        if(err){
+            console.error('Error executing INSERT query:', err)
+            res.status(500).send('Internal Server Error')
+        }
+        else{
+            res.send(result)
+        }
+    })
 })
 
 // http://localhost:3001/test GET
