@@ -5,7 +5,7 @@ function Header(){
 
     useEffect(function(){
         const getData = async function(){
-            const res = await fetch('http://127.0.0.1:3001')
+            const res = await fetch('http://localhost:3001')
             const data = await res.json()
             setData(data)
         }
