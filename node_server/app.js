@@ -29,13 +29,21 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-// http://localhost:3001/
+// http://localhost:3001/ GET
 app.get('/', (req, res) => {
     res.json('Hello world!')
 })
 
-// http://localhost:3001/test
+// http://localhost:3001/test POST
 app.post('/test', (req, res) => {
+    const test = req.body.test
+
+    console.log(test)
+    res.json(test)
+})
+
+// http://localhost:3001/test GET
+app.get('/test', (req, res) => {
     const selectQuery = "SELECT name FROM test"
 
     db.query(selectQuery, (err, result) => {
