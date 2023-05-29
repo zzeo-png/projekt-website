@@ -8,7 +8,7 @@ const app = express()
 
 // set database info
 const db = mysql.createPool({
-    host: 'host.docker.internal',
+    host: 'database',
     user: 'root',
     password: 'RootPass123!',
     database: 'roads'
