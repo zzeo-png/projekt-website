@@ -5,9 +5,7 @@ function Header(){
 
     useEffect(function(){
         const getData = async function(){
-            // docker -> host.docker.internal
-            // dev -> localhost
-            const res = await fetch('http://host.docker.internal:3001')
+            const res = await fetch('http://127.0.0.1:3001')
             const data = await res.json()
             setData(data)
         }
