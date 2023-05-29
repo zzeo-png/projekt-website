@@ -8,7 +8,7 @@ const app = express()
 
 // set database info
 const db = mysql.createPool({
-    host: 'database',
+    host: '34.65.105.245',
     user: 'root',
     password: 'RootPass123!',
     database: 'roads'

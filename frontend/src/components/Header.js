@@ -5,7 +5,7 @@ function Header(){
 
     useEffect(function(){
         const getData = async function(){
-            const res = await fetch('http://node-streznik:3001/')
+            const res = await fetch('http://34.65.105.245:3001/')
             const data = await res.json()
             setData(data)
         }
