@@ -22,12 +22,15 @@ docker ps
 ```
 
 ## Port
-Znotraj docker-compose.yaml je definirana translacija porta sledeča:
+Znotraj docker-compose.yaml so definirane translacije portov sledeče:
 ```
     ports:
-      - "3000:3000"
+      ### NodeJS
+      - "3001:3001"
+      ### React
+      - "80:3000"
 ```
-Format port_a:port_b nam pove, da želimo port_a iz kontejnerja na naši napravi prevesti v port_b. Se pravi ko dostopamo do spletne strani uporabimo localhost:port_b.
+Format port_a:port_b nam pove, da želimo port_b iz kontejnerja na naši napravi prevesti v port_a. Se pravi ko dostopamo do spletne strani uporabimo localhost:port_a.
 
 ## Za lažji razvoj
 Se lahko node strežnik zažene tudi lokalno iz zbirke ./node_server s komando

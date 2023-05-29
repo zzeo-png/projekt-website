@@ -5,11 +5,11 @@ FROM node:current-alpine
 WORKDIR /app
 
 #kopira datoteke aplikacije v zabojniku
-COPY ./node_server /app
+COPY ./frontend /app
 RUN npm install
 
 #izpostavi port
-EXPOSE 3001
+EXPOSE 3000
 
 #zazene node v zabojniku
 CMD npm run start
