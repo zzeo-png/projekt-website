@@ -1,0 +1,11 @@
+#osnovna slika
+FROM mysql:latest
+
+#root pass
+ENV MYSQL_ROOT_PASSWORD RootPass123!
+
+#database
+ENV MYSQL_DATABASE roads
+
+#izpostavi port
+EXPOSE 3306

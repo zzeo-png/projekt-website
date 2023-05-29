@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3001:3001"
-    container_name: projekt-backend
+    container_name: node-streznik
     networks:
       - projekt-network
   frontend:
@@ -15,7 +15,16 @@ services:
       dockerfile: Dockerfile_front
     ports:
       - "80:3000"
-    container_name: projekt-frontend
+    container_name: frontend
+    networks:
+      - projekt-network
+  database:
+    build:
+      context: .
+      dockerfile: Dockerfile_db
+    ports:
+      - "3306:3306"
+    container_name: database
     networks:
       - projekt-network
 
