@@ -9,7 +9,7 @@ COPY ./frontend /app
 RUN npm install
 
 #izpostavi port
-EXPOSE 3000
+EXPOSE 80
 
 #zazene node v zabojniku
 CMD npm run start
