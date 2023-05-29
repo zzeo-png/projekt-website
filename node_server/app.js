@@ -6,19 +6,47 @@ const port = 3001
 
 const app = express()
 
+// set database info
+const db = mysql.createPool({
+    host: 'host.docker.internal',
+    user: 'root',
+    password: 'RootPass123!',
+    database: 'roads'
+})
+
+// check database connection
+db.getConnection((err, connection) => {
+    if(err){
+        console.error('Error connecting to the database:', err)
+    }
+    else{
+        console.log('Database connected successfully!')
+        connection.release()
+    }
+})
+
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
+// http://localhost:3001/
 app.get('/', (req, res) => {
     res.json('Hello world!')
 })
 
+// http://localhost:3001/test
 app.post('/test', (req, res) => {
-    const test = req.body.test
+    const selectQuery = "SELECT name FROM test"
 
-    console.log(test)
-    res.json(test)
+    db.query(selectQuery, (err, result) => {
+        if(err){
+            console.error('Error executing SELECT query:', err)
+            res.status(500).send('Internal Server Error')
+        }
+        else{
+            res.send(result)
+        }
+    })
 })
 
 app.listen(port, ()=> {
