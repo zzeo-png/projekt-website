@@ -45,3 +45,11 @@
 .leaflet-container{
   height: 100%;
 }
+
+.leaflet-control-container .leaflet-routing-container-hide {
+  display: none;
+}
+
+.leaflet-interactive[stroke="black"], .leaflet-interactive[stroke="white"], .leaflet-interactive[stroke="gray"] {
+  display: none;
+}

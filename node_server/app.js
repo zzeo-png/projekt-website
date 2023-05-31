@@ -51,9 +51,9 @@ app.post('/test', (req, res) => {
     })
 })
 
-// http://localhost:3001/test GET
-app.get('/test', (req, res) => {
-    const selectQuery = "SELECT name FROM test"
+// http://localhost:3001/roads GET
+app.get('/roads', (req, res) => {
+    const selectQuery = "SELECT * FROM list"
 
     db.query(selectQuery, (err, result) => {
         if(err){
@@ -61,9 +61,13 @@ app.get('/test', (req, res) => {
             res.status(500).send('Internal Server Error')
         }
         else{
-            res.send(result)
+            console.log(result)
+            res.json(result)
         }
     })
+    /*res.json([{ points: [[46.411980, 16.167243], [46.410804, 16.168330]], color: "green"},
+    { points: [[46.410251, 16.161315], [46.411974, 16.163936]], color: "red"},
+    { points: [[46.411974, 16.163936], [46.411980, 16.167243]], color: "yellow"}])*/
 })
 
 app.listen(port, ()=> {

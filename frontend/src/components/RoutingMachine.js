@@ -2,9 +2,12 @@ import L from "leaflet";
 import { createControlComponent } from "@react-leaflet/core";
 import "leaflet-routing-machine";
 
-const createRoutineMachineLayer = ({points, color, weight}) => {
-    const startPoint = L.latLng(points[0][0], points[0][1]);
-    const endPoint = L.latLng(points[1][0], points[1][1]);
+const createRoutineMachineLayer = ({road, weight}) => {
+    const color = 
+        road.color === 0 ? "green" : road.color === 1 ? "yellow" : "red"
+
+    const startPoint = L.latLng(road.startPointLAT, road.startPointLNG);
+    const endPoint = L.latLng(road.endPointLAT, road.endPointLNG);
 
     const instance = L.Routing.control({
         waypoints: [startPoint, endPoint],
@@ -17,6 +20,7 @@ const createRoutineMachineLayer = ({points, color, weight}) => {
         draggableWaypoints: false,
         fitSelectedRoutes: false,
         showAlternatives: false,
+        altLineOptions: { styles: [{opacity: 0}] },
         createMarker: function () {
             return null
         }
