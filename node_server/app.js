@@ -31,16 +31,20 @@ app.use(express.urlencoded({ extended: true }))
 
 // http://localhost:3001/ GET
 app.get('/', (req, res) => {
-    res.json('Hello world!')
+    res.json('Hello from Cestometer!')
 })
 
-// http://localhost:3001/test POST
-app.post('/test', (req, res) => {
-    const test = req.body.test
+// http://localhost:3001/roads POST
+app.post('/roads', (req, res) => {
+    const startLat = req.body.startLAT
+    const startLng = req.body.startLNG
+    const endLat = req.body.endLAT
+    const endLng = req.body.endLNG
+    const condition = req.body.condition || 1
 
-    const insertQuery = "INSERT INTO test (name) VALUES (?)"
+    const insertQuery = "INSERT INTO `list` (`startPointLAT`, `startPointLNG`, `endPointLAT`, `endPointLNG`, `condition`) VALUES (?, ?, ?, ?, ?)"
 
-    db.query(insertQuery, [test], (err, result) => {
+    db.query(insertQuery, [startLat, startLng, endLat, endLng, condition], (err, result) => {
         if(err){
             console.error('Error executing INSERT query:', err)
             res.status(500).send('Internal Server Error')
@@ -53,7 +57,7 @@ app.post('/test', (req, res) => {
 
 // http://localhost:3001/roads GET
 app.get('/roads', (req, res) => {
-    const selectQuery = "SELECT * FROM list"
+    const selectQuery = "SELECT * FROM `list`"
 
     db.query(selectQuery, (err, result) => {
         if(err){
@@ -61,13 +65,27 @@ app.get('/roads', (req, res) => {
             res.status(500).send('Internal Server Error')
         }
         else{
-            console.log(result)
             res.json(result)
         }
     })
-    /*res.json([{ points: [[46.411980, 16.167243], [46.410804, 16.168330]], color: "green"},
-    { points: [[46.410251, 16.161315], [46.411974, 16.163936]], color: "red"},
-    { points: [[46.411974, 16.163936], [46.411980, 16.167243]], color: "yellow"}])*/
+})
+
+// http://localhost:3001/roads/:id DELETE
+app.delete('/roads', (req, res) => {
+    const id = req.body.id
+
+    const deleteQuery = "DELETE FROM `list` WHERE `id` = ?"
+
+    db.query(deleteQuery, [id], (err, result) => {
+        if(err){
+            console.error('Error executing DELETE query:', err)
+            res.status(500).send('Internal Server Error')
+        }
+        else{
+            res.json(result)
+        }
+    })
+
 })
 
 app.listen(port, ()=> {

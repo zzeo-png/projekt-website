@@ -1,10 +1,10 @@
-import L from "leaflet";
-import { createControlComponent } from "@react-leaflet/core";
-import "leaflet-routing-machine";
+import L from "leaflet"
+import { createControlComponent } from "@react-leaflet/core"
+import "leaflet-routing-machine"
 
 const createRoutineMachineLayer = ({road, weight}) => {
     const color = 
-        road.color === 0 ? "green" : road.color === 1 ? "yellow" : "red"
+        road.color === 0 ? "#009dda" : road.color === 1 ? "green" : "red"
 
     const startPoint = L.latLng(road.startPointLAT, road.startPointLNG);
     const endPoint = L.latLng(road.endPointLAT, road.endPointLNG);
@@ -26,7 +26,7 @@ const createRoutineMachineLayer = ({road, weight}) => {
         }
     })
 
-    return instance;
+    return instance
 }
 
 const RoutingMachine = createControlComponent(createRoutineMachineLayer)
