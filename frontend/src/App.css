@@ -126,6 +126,17 @@
   border-radius: .15rem;
 }
 
+@media only screen and (max-width: 600px) {
+  .legend ul{
+    padding: .5rem 0;
+    font-size: .7rem;
+  }
+  
+  .legend ul li{
+    padding: .5rem 1rem;
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
