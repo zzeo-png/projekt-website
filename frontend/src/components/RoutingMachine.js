@@ -4,7 +4,7 @@ import "leaflet-routing-machine"
 
 const createRoutineMachineLayer = ({road, weight}) => {
     const color = 
-        road.color === 0 ? "#009dda" : road.color === 1 ? "green" : "red"
+        road.condition === 0 ? "#009dda" : road.condition === 1 ? "green" : "red"
 
     const startPoint = L.latLng(road.startPointLAT, road.startPointLNG);
     const endPoint = L.latLng(road.endPointLAT, road.endPointLNG);

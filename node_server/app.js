@@ -53,6 +53,8 @@ app.post('/roads', (req, res) => {
             res.send(result)
         }
     })
+    //console.log(req.body)
+    //res.json("ok")
 })
 
 // http://localhost:3001/roads GET
