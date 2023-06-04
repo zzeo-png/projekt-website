@@ -3,9 +3,13 @@ const cors = require('cors')
 const mysql = require('mysql2')
 const multer = require('multer')
 const bcrypt = require('bcrypt')
+const fs = require('fs')
 
 const upload = multer({ dest: 'uploads/' })
 const saltRounds = 5
+
+const IPC_FIFO_NAME_OUT = "./prepoznava_obraza/pipe_node_py"
+const IPC_FIFO_NAME_IN = "./prepoznava_obraza/pipe_py_node"
 
 const port = 3001
 
@@ -38,10 +42,6 @@ app.use(express.urlencoded({ extended: true }))
 // http://localhost:3001/ GET
 app.get('/', (req, res) => {
     res.json('Hello from Cestometer!')
-})
-
-app.post('/face_login', (req, res) => {
-    res.json("DENIED")
 })
 
 // -- Dodajanje ceste --
@@ -104,6 +104,32 @@ app.delete('/roads', (req, res) => {
 // -- Biometriča prijava --
 // http://localhost:3001/login POST
 app.post('/login', upload.single('imageFile'), (req, res) => {
+
+    const fd   = fs.openSync(IPC_FIFO_NAME_IN, 'r+');
+    let fifoRs = fs.createReadStream(null, { fd });
+    let fifoWs = fs.createWriteStream(IPC_FIFO_NAME_OUT);
+    let response = {status: "invalid"}
+
+    // Pošlji naslov do slike
+    if(req.file) {
+        fs.rename(req.file.path, `./prepoznava_obraza/slike/${req.file.filename}`)
+        send = {req: `./prepoznava_obraza/shranjene_osebe/${req.file.filename}`}
+        fifoWs.write(JSON.stringify(send));
+
+        fifoRs.on('data', data => {
+            recieve = JSON.parse(data)
+            switch(recieve["res"]) {
+                case "unidentified":
+                    break
+                case "unknown":
+                    break
+                default:
+                    response = {status: "valid", user: recieve["res"]}
+            }
+            print(recieve)
+        })
+    }
+
     // procesiraj sliko
 
     // pošlji odgovor + uporabnikovo ime
@@ -114,7 +140,7 @@ app.post('/login', upload.single('imageFile'), (req, res) => {
     // obraz se ne ujema
     // res.json({status: "invalid"})
     console.log(req.file)
-    res.json({status: "invalid"})
+    res.json(response)
 })
 
 // -- Registracija uporabnika --
