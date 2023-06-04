@@ -85,7 +85,6 @@ def medprocesna_komunikacija():
                 fifo_out.write(json.dumps(node_response))
         except Exception as error:
             print(error)
-            
 
 
 if __name__ == "__main__":

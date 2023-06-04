@@ -40,6 +40,10 @@ app.get('/', (req, res) => {
     res.json('Hello from Cestometer!')
 })
 
+app.post('/face_login', (req, res) => {
+    res.json("DENIED")
+})
+
 // -- Dodajanje ceste --
 // http://localhost:3001/roads POST
 app.post('/roads', (req, res) => {
