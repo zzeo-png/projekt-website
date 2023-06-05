@@ -30,5 +30,5 @@ EXPOSE 3001
 
 # Run the application
 #CMD python3 ./prepoznava_obraza/prepoznava_obraza.py
-RUN chmod +x ./run.sh
-RUN ./run.sh
+#RUN chmod +x ./run.sh
+#RUN ./run.sh
