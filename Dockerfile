@@ -1,7 +1,11 @@
 FROM ubuntu
 
 # Install dependencies
-RUN apt update && apt upgrade -y && apt install -y python3 python3-pip nodejs npm
+RUN apt update && apt upgrade -y && apt install -y python3 python3-pip npm
+
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
+RUN apt-get install -y nodejs
 
 # Set working directory
 WORKDIR /app
