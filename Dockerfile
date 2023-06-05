@@ -1,24 +1,27 @@
-#osnovna slika
 FROM ubuntu
 
-#direktorij iz katerega znotraj zabojnika poganjamo komande
+# Install dependencies
+RUN apt update && apt upgrade -y && apt install -y python3 python3-pip nodejs npm
+
+# Set working directory
 WORKDIR /app
 
-#kopira datoteke aplikacije v zabojniku
+# Copy application files
 COPY ./node_server /app
-RUN apt update
-RUN apt -y upgrade
-RUN apt -y install python3 pip nodejs npm
+COPY ./prepoznava_obraza /app/prepoznava_obraza
+
+# Install Node.js dependencies
 RUN npm install
-#COPY ./prepoznava_obraza /app
-# RUN make -C /app/prepoznava_obraza/
-RUN pip install deepface
+
+# Install Python dependencies
+RUN pip3 install deepface
+
+# Set executable permissions and run initialization script
 RUN chmod +x ./prepoznava_obraza/init.sh
 RUN ./prepoznava_obraza/init.sh
 
-#izpostavi port
+# Expose port
 EXPOSE 3001
 
-#zazene node v zabojniku
-#RUN chmod +x run.sh
+# Run the application
 CMD python3 ./prepoznava_obraza/prepoznava_obraza.py
