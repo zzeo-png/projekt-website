@@ -4,9 +4,9 @@ FROM ubuntu
 RUN apt update && apt upgrade -y && apt install -y python3 python3-pip npm
 
 # Install Node.js
-RUN apt install curl -y
+RUN apt-get install curl -y
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
-RUN apt install -y nodejs
+RUN apt-get -o Dpkg::Options::="--force-overwrite" install -y nodejs
 
 # Set working directory
 WORKDIR /app
